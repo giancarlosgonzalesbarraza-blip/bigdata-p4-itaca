@@ -1,0 +1,26 @@
+# ------------------------------------------------------------------
+# Programación del recolector (Bloque 1, apartado 7)
+#
+# A cada fuente se le da una frecuencia acorde a cómo la actualiza el
+# origen (tabla del apartado "Puntual vs programada"):
+#
+#   estado  (capa 192)  tiempo real      -> cada 3 min
+#   tramos  (capa 188)  tiempo real      -> cada 5 min
+#   espiras (capa 208)  cada hora        -> cada hora
+#   aire    (capa 156)  casi no cambia   -> cada hora
+#   meteo   (capa 157)  casi no cambia   -> cada hora
+#   aemet               obs. horaria     -> cada hora
+#
+# Las ingesta horarias van en minutos distintos (5/15/20/25) para que
+# no coincidan nunca y no empotrar contra los límites del servidor.
+# La salida de cada línea se añade a logs/ para revisar fallos.
+#
+# Instalación en el servidor:  crontab -e   y pegar estas líneas.
+# ------------------------------------------------------------------
+
+*/3 * * * *  cd /home/usuario/proyecto && /home/usuario/proyecto/.venv/bin/python recolector/recolector.py estado  >> logs/cron_estado.log 2>&1
+*/5 * * * *  cd /home/usuario/proyecto && /home/usuario/proyecto/.venv/bin/python recolector/recolector.py tramos  >> logs/cron_tramos.log 2>&1
+5 * * * *    cd /home/usuario/proyecto && /home/usuario/proyecto/.venv/bin/python recolector/recolector.py espiras >> logs/cron_espiras.log 2>&1
+15 * * * *   cd /home/usuario/proyecto && /home/usuario/proyecto/.venv/bin/python recolector/recolector.py aire    >> logs/cron_aire.log 2>&1
+20 * * * *   cd /home/usuario/proyecto && /home/usuario/proyecto/.venv/bin/python recolector/recolector.py meteo   >> logs/cron_meteo.log 2>&1
+25 * * * *   cd /home/usuario/proyecto && /home/usuario/proyecto/.venv/bin/python recolector/recolector.py aemet   >> logs/cron_aemet.log 2>&1

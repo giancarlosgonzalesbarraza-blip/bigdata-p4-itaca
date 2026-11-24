@@ -1,0 +1,18 @@
+services:
+  nifi:
+    image: apache/nifi:1.28.1
+    container_name: bigdata-nifi
+    restart: unless-stopped
+    ports:
+      - "8443:8443"
+    environment:
+      - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      - SINGLE_USER_CREDENTIALS_PASSWORD=ctsBtRBKHRAx69EqUghvvgEvjnaLjFEB
+      - NIFI_JVM_HEAP_INIT=512m
+      - NIFI_JVM_HEAP_MAX=1g
+    volumes:
+      - nifi-data:/opt/nifi/nifi-current/conf        # persiste el flujo y la configuración de NiFi
+      - ./data/raw/nifi:/data/raw/nifi               # salida de PutFile, visible en el proyecto
+
+volumes:
+  nifi-data:

@@ -1,0 +1,18 @@
+# Entorno virtual de Python
+.venv/
+venv/
+
+# Datos descargados / generados
+data/
+
+# Carpetas de salidas y ejecución
+logs/
+__pycache__/
+*.py[cod]
+
+# Secretos y ficheros locales
+.env
+
+# NOTA: Git no versiona carpetas vacías por defecto (solo archivos),
+# así que no hace falta añadir reglas para ellas. Si una carpeta tiene
+# un .gitkeep y ya no se usa, borrarlo también la hace desaparecer.
